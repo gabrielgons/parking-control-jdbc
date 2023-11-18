@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.api.parkingcontroljdbc.annotations.IgnoreField;
 import com.api.parkingcontroljdbc.models.Entity;
 
 public abstract class BaseRepository<T extends Entity> {
@@ -41,7 +42,7 @@ public abstract class BaseRepository<T extends Entity> {
 			query.append("id, ");
 
 			for (Field field : fields) {
-				if ("serialVersionUID".equals(field.getName()))
+				if (field.isAnnotationPresent(IgnoreField.class))
 					continue;
 
 				query.append(MessageFormat.format("{0},", toSnakeCase(field.getName())));
@@ -61,7 +62,7 @@ public abstract class BaseRepository<T extends Entity> {
 			query.append(MessageFormat.format("UPDATE {0} SET ", table));
 
 			for (Field field : fields) {
-				if (field.getName().equals("id"))
+				if (field.isAnnotationPresent(IgnoreField.class))
 					continue;
 
 				query.append(MessageFormat.format("{0}=?,", toSnakeCase(field.getName())));

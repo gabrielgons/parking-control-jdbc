@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.api.parkingcontroljdbc.annotations.IgnoreField;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class ParkingSpot extends Entity {
 
+	@IgnoreField
 	private static final long serialVersionUID = 1L;
 
 	private String parkingSpotNumber;

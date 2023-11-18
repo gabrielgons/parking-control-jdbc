@@ -1,4 +1,4 @@
-package com.api.parkingcontroljdbc.repositories;
+package com.api.parkingcontroljdbc.repositories.rowmappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

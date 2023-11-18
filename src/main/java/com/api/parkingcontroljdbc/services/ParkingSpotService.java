@@ -13,27 +13,27 @@ import com.api.parkingcontroljdbc.models.ParkingSpot;
 
 @Service
 public class ParkingSpotService {
-	
+
 	final ParkingSpotRepository parkingSpotRepository;
-	
+
 	public ParkingSpotService(ParkingSpotRepository parkingSpotRepository) {
-		
+
 		this.parkingSpotRepository = parkingSpotRepository;
 	}
 
 	@Transactional
-	public ParkingSpot save(ParkingSpot parkingSpotModel) {
+	public ParkingSpot save(ParkingSpot parkingSpotModel) throws IllegalArgumentException, IllegalAccessException {
 		return parkingSpotRepository.save(parkingSpotModel);
 	}
 
 	public boolean existsByLicensePlateCar(String licensePlateCar) {
-		return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);		
+		return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);
 	}
-	
+
 	public boolean existsByParkingSpotNumber(String parkingSpotNumber) {
 		return parkingSpotRepository.existsByParkingSpotNumber(parkingSpotNumber);
 	}
-	
+
 	public boolean existsByApartmentAndBlock(String apartment, String block) {
 		return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
 	}
@@ -48,6 +48,6 @@ public class ParkingSpotService {
 
 	@Transactional
 	public void delete(ParkingSpot parkingSpotModel) {
-		parkingSpotRepository.delete(parkingSpotModel);		
-	}	
+		parkingSpotRepository.delete(parkingSpotModel);
+	}
 }

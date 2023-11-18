@@ -41,7 +41,7 @@ public class ParkingSpotController {
 	
 
 	@PostMapping
-	public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto){
+	public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws IllegalArgumentException, IllegalAccessException{
 		
 		if(parkingSpotService.existsByLicensePlateCar(parkingSpotDto.getLicensePlateCar())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Licence Plate Car is already in use!");
@@ -92,7 +92,7 @@ public class ParkingSpotController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateParkingSpot(@PathVariable(value="id") UUID id, @RequestBody @Valid ParkingSpotDto parkingSpotDto) {
+	public ResponseEntity<Object> updateParkingSpot(@PathVariable(value="id") UUID id, @RequestBody @Valid ParkingSpotDto parkingSpotDto) throws IllegalArgumentException, IllegalAccessException {
 		Optional<ParkingSpot> parkingSpotDoBancoOptional = parkingSpotService.findById(id);
 		
 		if(!parkingSpotDoBancoOptional.isPresent()) {

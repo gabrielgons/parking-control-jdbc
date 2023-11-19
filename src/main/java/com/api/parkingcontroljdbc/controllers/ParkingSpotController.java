@@ -1,5 +1,6 @@
 package com.api.parkingcontroljdbc.controllers;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
@@ -59,6 +60,25 @@ public class ParkingSpotController {
 		var parkingSpotModel = new ParkingSpot();
 		BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
 		parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));		
+	}
+	
+	@PutMapping
+	public ResponseEntity<Object> putParkingSpot(@RequestBody @Valid ParkingSpotDto parkingSpotDto) throws IllegalArgumentException, IllegalAccessException{
+		
+		var parkingSpotBanco = parkingSpotService.findById(parkingSpotDto.getId());
+		
+		if(parkingSpotBanco.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MessageFormat.format("Not found: id {0} não encontrada.", parkingSpotDto.getId()));
+		}
+		
+		var parkingSpotModel = new ParkingSpot();
+		BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);		
+		parkingSpotModel.setRegistrationDate(parkingSpotBanco.get().getRegistrationDate());
+		parkingSpotModel.setParkingSpotNumber(parkingSpotBanco.get().getParkingSpotNumber());
+		parkingSpotModel.setApartment(parkingSpotBanco.get().getApartment());
+		parkingSpotModel.setBlock(parkingSpotBanco.get().getBlock());		
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));		
 	}

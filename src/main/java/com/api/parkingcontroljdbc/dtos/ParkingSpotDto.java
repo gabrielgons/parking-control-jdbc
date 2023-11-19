@@ -1,5 +1,7 @@
 package com.api.parkingcontroljdbc.dtos;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -9,6 +11,8 @@ import lombok.Setter;
 @Setter
 public class ParkingSpotDto {
 
+	private UUID id;
+	
 	@NotBlank
 	private String parkingSpotNumber;
 
